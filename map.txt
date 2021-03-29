@@ -1,0 +1,213 @@
+Introduction:
+   Maps are associative containers that store elements in a mapped fashion. Each element has a key value and a mapped value. No two mapped values can have same key values. All the keys are 
+sorted in increasing order by default.
+
+header file:
+#include<map.h> or #include<bits/stdc++.h>
+
+syntax:
+   map<datatype,datatype>map_name;
+  here datatype means string,int,double,vector,set,queue,stack,map etc.
+
+How to iterate map:
+1.using Iterators(used to point to a memory address):
+syntax:
+  map<datatype,datatype>::iterator iterator_name;
+  for(iterator_name=map_name.begin();iterator_name!=map_name.end();iterator_name++)
+  cout<<iterator_name->first<<" "<<iterator_name->second<<"\n";
+2.using auto keyword:
+syntax:
+  for(auto auto_name:map_name)
+  cout<<auto_name<<" ";
+
+Note:both iterators and auto keyword reduces the execution time of program.
+
+Useful Methods:
+1.insert():It is used to used to insert a key_value in map.
+syntax: map_name.insert({key,element});// key is mapped to element.
+Time complexity:O(logn)
+2.clear():It is used to empty a map.
+syntax: map_name.clear(); // map is empty.
+Time complexity:O(n)
+3.size(): It returns the size of the map.
+syntax:  map_name.size();
+Time complexity:O(1)
+4.begin():It returns an Iterator to the first element in the map.
+syntax:  map_name.begin();
+Time complexity:O(1)
+5.end():It returns an Iterator to the last element in the map.
+syntax:  map_name.end();
+Time complexity:O(1)
+6.find(key): It returns an iterator that refers to the position where the key is present in the map.If the key is not present it returns an Iterator which refers to map_name.end().
+syntax:  iterator=map_name.find(key);
+Time complexity:O(logn)
+7.erase(key): It erases the key in the map.
+syntax: map_name.erase(key);
+Time complexity:O(logn)
+
+Programs on methods:
+1.Inserting elements in a map.
+c++ code:
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+map<int,int>m;//map declaration
+m.insert({1,2});//one way
+m[1]=2;//another way
+return 0;
+}
+2.Printing elements in a map.
+c++ code:
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+map<int,int>m;//map declaration
+m[100]=31;
+m[1]=2;
+m[5]=4;
+m[2]=3;
+//using Iterator
+map<int,int>::iterator it;
+for(it=m.begin();it!=m.end();it++)
+cout<<it->first<<" "<<it->second<<"\n";
+//using auto keyword
+for(auto i:m)
+cout<<i.first<<" "<<i.second<<"\n";
+return 0;
+}
+Output:
+1 2
+2 3
+5 4
+100 31
+Note:Keys are in Increasing Order
+3.Finding size of the map.
+c++ code:
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+map<int,int>m;//map declaration
+m[100]=31;
+m[1]=2;
+m[5]=4;
+m[2]=3;
+int len=m.size();
+cout<<len;
+return 0;
+}
+Output:4
+4.Finding if given key present in the map or not.
+c++ code:
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+map<int,int>m;//map declaration
+m[100]=31;
+m[1]=2;
+m[5]=4;
+m[2]=3;
+int key1=1,key2=55;
+if(m.find(key1)!=m.end())
+cout<<"Found\n";
+else
+cout<<"Not Found\n";
+if(m.find(key2)!=m.end())
+cout<<"Found\n";
+else
+cout<<"Not Found\n";
+return 0;
+}
+Output:
+Found
+Not Found
+5.Clear the map.
+c++ code:
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+map<int,int>m;//map declaration
+m[100]=31;
+m[1]=2;
+m[5]=4;
+m[2]=3;
+m.clear();
+int len=m.size();
+cout<<len;//0
+return 0;
+}
+6.Erase a given key from the map.
+c++ code:
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+map<int,int>m;//map declaration
+m[100]=31;
+m[1]=2;
+m[5]=4;
+m[2]=3;
+m.erase(2);
+for(auto i:m)
+cout<<i.first<<" "<<i.second<<"\n";
+return 0;
+}
+Output:
+1 2
+5 4
+100 31
+
+Programs:
+1.Find the Frequency of the strings and Print all the strings in Lexicographical order along with their Frequencies.
+c++ code:
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+int n;
+cin>>n;//number of strings
+map<string,int>m;
+string s[n];
+for(int i=0;i<n;i++){
+cin>>s[i];
+m[s[i]]++;
+}
+
+for(auto i:m)
+cout<<i.first<<" "<<i.second<<"\n";
+return 0;
+}
+Input:
+5
+aba
+cse
+ravi
+map
+cse
+Output:
+aba 1
+cse 2
+map 1
+ravi 1
+Explanation: We are taking key as string,element as int to store the frequency of the string. By default element(int) will be zero.
+
+2.Print the Distinct Characters from the string in the order.
+c++ code:
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+string s;
+cin>>s;
+map<char,int>m;
+for(int i=0;i<s.size();i++)
+m[s[i]]++;
+for(int i=0;i<s.size();i++){
+if(m[s[i]]>0){
+cout<<s[i];
+m[s[i]]=0;
+}
+}
+return 0;
+}
+Input:
+abacbad
+Output:
+abcd
+Explanation:If the frequnecy of the current character is greater than zero than print that character and mark that character frequency to zero. Next time it will not be printed.
